@@ -26,7 +26,7 @@ app.get('/registration', (req, res) => {
 
 app.post('/registration', (req, res) => {
     fs.readFile(db, (err, data) => {
-        if(err) {
+        if (err) {
             console.log(err);
             return;
         }
@@ -34,14 +34,14 @@ app.post('/registration', (req, res) => {
         const { email } = req.body;
         const users = JSON.parse(data.toString());
 
-        if(users.find(user => user.email === email)) {
+        if (users.find(user => user.email === email)) {
             res.render('errors', { emailFalse: true });
             return;
         }
 
         users.push(req.body);
         fs.writeFile(db, JSON.stringify(users), err1 => {
-            if(err1) {
+            if (err1) {
                 console.log(err1);
                 return;
             }
@@ -57,7 +57,7 @@ app.get('/login', (req, res) => {
 
 app.post('/login', (req, res) => {
     fs.readFile(db, (err, data) => {
-        if(err) {
+        if (err) {
             console.log(err);
             return;
         }
@@ -77,7 +77,7 @@ app.post('/login', (req, res) => {
 
 app.get('/users', (req, res) => {
     fs.readFile(db, (err, data) => {
-        if(err) {
+        if (err) {
             console.log(err);
             return;
         }
@@ -89,7 +89,7 @@ app.get('/users', (req, res) => {
 
 app.get('/users/:user_id', (req, res) => {
     fs.readFile(db, (err, data) => {
-        if(err) {
+        if (err) {
             console.log(err);
             return;
         }
@@ -98,10 +98,11 @@ app.get('/users/:user_id', (req, res) => {
         const { user_id } = req.params;
         const user = users[user_id];
 
-        if(!user) {
-            res.render('errors', { userFalse : 'userFalse' });
+        if (!user) {
+            res.render('errors', { userFalse : true });
+            return;
         }
 
-        res.render('userId', { user })
-    })
-})
+        res.render('userId', { user });
+    });
+});
