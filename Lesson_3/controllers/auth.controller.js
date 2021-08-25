@@ -11,6 +11,6 @@ module.exports = {
             return;
         }
 
-        res.status(200).json('you are login');
+        res.json('you are login');
     }
 };
