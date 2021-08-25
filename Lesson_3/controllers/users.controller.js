@@ -6,6 +6,7 @@ module.exports = {
 
         res.json(users);
     },
+
     getOneUser: async (req, res) => {
         const { user_id } = req.params;
         const user = await userById(user_id);
@@ -18,6 +19,7 @@ module.exports = {
 
         res.json(user);
     },
+
     createUser: async (req, res) => {
         const { email, password } = req.body;
         const authUser = { email, password };
@@ -25,19 +27,19 @@ module.exports = {
         const users = await showUsers();
 
         if (!email || !password){
-            res.status(404).json('no email or password');
+            res.status(400).json('no email or password');
 
             return;
         }
 
         if (users.find(user => user.email === email)){
-            res.status(404).json('user is already exists');
+            res.status(400).json('user is already exists');
 
             return;
         }
 
         await createUser(authUser);
 
-        res.status(200).json('user created');
+        res.status(201).json('user created');
     }
 };
