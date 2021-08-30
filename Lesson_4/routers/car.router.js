@@ -8,9 +8,7 @@ router.get('/', carController.getCars);
 router.get('/:car_id', carMiddleware.checkIdValid, carController.getCar);
 
 router.post('/',
-    carMiddleware.checkIsModelValid,
-    carMiddleware.checkIsPriceValid,
-    carMiddleware.checkIsYearValid,
+    carMiddleware.isCarValid,
     carMiddleware.checkIsBrandUnique,
     carController.createCar);
 

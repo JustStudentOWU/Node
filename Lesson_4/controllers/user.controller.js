@@ -1,3 +1,4 @@
+const { ERROR_MESSAGE, STATUS_CODES } = require('../constants');
 const { userService } = require('../services');
 
 module.exports = {
@@ -23,7 +24,7 @@ module.exports = {
         try {
             await userService.createUser(req.body);
 
-            res.status(201).json('user created');
+            res.status(STATUS_CODES).json(ERROR_MESSAGE.USER_CREATED);
         } catch (e) {
             next(e);
         }
@@ -34,7 +35,7 @@ module.exports = {
             const { user_id } = req.params;
             await userService.deleteUser(user_id);
 
-            res.status(204).json('success deleted');
+            res.status(STATUS_CODES.DELETE).json(ERROR_MESSAGE.CAR_DELETED);
         } catch (e) {
             next(e);
         }
